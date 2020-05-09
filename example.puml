@@ -1,0 +1,61 @@
+@startuml
+skinparam monochrome true
+skinparam defaultTextAlignment center
+
+!include https://raw.githubusercontent.com/zhmylove/genealogy/master/genealogy.iuml
+
+' === Create persons
+' person( person_id , person_name )
+person(1, "Person 1")
+person(2, "Person 2")
+person(3, "Person 3")
+person(4, "Person 4\n\n01.01.1970 - 01.01.2070")
+person(5, "Person 5")
+person(6, "Person 6")
+person(7, "Person 7")
+person(8, "Person 8")
+person(9, "Person 9")
+person(10, "Person 10")
+person(11, "Person 11")
+
+' Add persons to the tree using one of following.
+' - single( person_id )
+'   Add single person
+' - pair( pair_id, first_person_id, second_person_id )
+'   Add two persons and their marriage
+' - doublepair( first_pair_id, second_pair_id, first_person_id, second_person_id, third_person_id )
+'   Add three persons and two marriages: first + second and second + third
+' We can combine persons into generations using `together'
+' Generation 0
+together {
+ single(1)
+ single(2)
+}
+
+' Generation 1
+together {
+ pair(1, 4, 5)
+}
+
+' Generation 2
+together {
+ pair(2, 6, 7)
+ single(11)
+}
+
+' Generation 3
+together {
+ doublepair(3, 4, 10, 8, 9)
+}
+
+' Finally, add child information
+' If the person was not added, they will be listed as person_id as "u24"
+' - child( pair_id , person_id )
+' - child( person_id , person_id )
+child(1, 1)
+child(1, 2)
+child(2, 4)
+child(3, 7)
+child(3, 11)
+child(4, 12)
+@enduml
