@@ -6,7 +6,7 @@
 !return "b" + $id
 !endfunction
 
-!procedure person($id, $name)
+!unquoted procedure person($id, $name)
 %set_variable_value(getuid($id), $name)
 !endprocedure
 
@@ -15,34 +15,34 @@
 !return $name + '"'
 !endfunction
 
-!procedure single($uid)
+!unquoted procedure single($uid)
  rectangle getname($uid) as getuid($uid)
 !endprocedure 
 
-!procedure pair($id, $uid1, $uid2)
+!unquoted procedure pair($id, $uid1, $uid2, $union1_style="-left-", , $union2_style="-right-")
  together {
   single($uid1)
   interface " " as getbid($id)
   single($uid2)
-  getuid($uid1) -left- getbid($id)
-  getuid($uid2) -right- getbid($id)
+  getuid($uid1) $union1_style getbid($id)
+  getuid($uid2) $union2_style getbid($id)
  }
 !endprocedure 
 
-!procedure doublepair($id1, $id2, $uid3, $uid2, $uid1)
+!unquoted procedure doublepair($id1, $id2, $uid3, $uid2, $uid1, $union1_style="-right-", $union2_style="-left-", $union3_style="-left-", $union4_style="-right-")
  together {
   single($uid1)
   interface " " as getbid($id1)
   single($uid2)
   interface " " as getbid($id2)
   single($uid3)
-  getuid($uid1) -right- getbid($id1)
-  getuid($uid2) -left- getbid($id1)
-  getuid($uid3) -left- getbid($id2)
-  getuid($uid2) -right- getbid($id2)
+  getuid($uid1) $union1_style getbid($id1)
+  getuid($uid2) $union2_style getbid($id1)
+  getuid($uid3) $union3_style getbid($id2)
+  getuid($uid2) $union4_style getbid($id2)
  }
 !endprocedure 
 
-!procedure child($bid, $uid)
-getbid($bid) -down- getuid($uid)
+!unquoted procedure child($bid, $uid, $union_style="-down-")
+getbid($bid) $union_style getuid($uid)
 !endprocedure

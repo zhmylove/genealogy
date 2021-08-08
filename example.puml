@@ -6,56 +6,56 @@ skinparam defaultTextAlignment center
 
 ' === Create persons
 ' person( person_id , person_name )
-person(1, "Person 1")
-person(2, "Person 2")
-person(3, "Person 3")
-person(4, "Person 4\n\n01.01.1970 - 01.01.2070")
-person(5, "Person 5")
-person(6, "Person 6")
-person(7, "Person 7")
-person(8, "Person 8")
-person(9, "Person 9")
-person(10, "Person 10")
-person(11, "Person 11")
+person(person1, "Person 1")
+person(person2, "Person 2")
+person(person3, "Person 3")
+person(person4, "Person 4\n\n01.01.1970 - 01.01.2070")
+person(person5, "Person 5")
+person(person6, "Person 6")
+person(person7, "Person 7")
+person(person8, "Person 8")
+person(person9, "Person 9")
+person(person10, "Person 10")
+person(person11, "Person 11")
 
 ' Add persons to the tree using one of following.
 ' - single( person_id )
 '   Add single person
-' - pair( pair_id, first_person_id, second_person_id )
+' - pair( pair_id, first_person_id, second_person_id, union1_style, union2_style )
 '   Add two persons and their marriage
-' - doublepair( first_pair_id, second_pair_id, first_person_id, second_person_id, third_person_id )
+' - doublepair( first_pair_id, second_pair_id, first_person_id, second_person_id, third_person_id, union1_style, union2_style, union3_style, union4_style )
 '   Add three persons and two marriages: first + second and second + third
 ' We can combine persons into generations using `together'
 ' Generation 0
 together {
- single(1)
- single(2)
+ single(person1)
+ single(person2)
 }
 
 ' Generation 1
 together {
- pair(1, 4, 5)
+ pair(pair1, person4, person5, ".left.", "<-right-")
 }
 
 ' Generation 2
 together {
- pair(2, 6, 7)
- single(11)
+ pair(pair2, person6, person7, "-[norank]left-" )
+ single(person11)
 }
 
 ' Generation 3
 together {
- doublepair(3, 4, 10, 8, 9)
+ doublepair(pair3, pair4, person10, person8, person9, $union2_style="-[dotted]left-")
 }
 
 ' Finally, add child information
-' If the person was not added, they will be listed as person_id as "u24"
-' - child( pair_id , person_id )
-' - child( person_id , person_id )
-child(1, 1)
-child(1, 2)
-child(2, 4)
-child(3, 7)
-child(3, 11)
-child(4, 12)
+' If the person was not added, they will be listed as person_id as "uperson12"
+' - child( pair_id , person_id, union_style )
+' - child( person_id , person_id, union_style )
+child(pair1, person1, "-[dashed,thickness=10]down-")
+child(pair1, person2)
+child(pair2, person4)
+child(pair3, person7)
+child(pair3, person11)
+child(pair4, person12)
 @enduml
